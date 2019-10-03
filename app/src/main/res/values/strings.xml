@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">To Do List</string>
+    <string name="enter_task_hint">Enter a Task to Add</string>
+</resources>
