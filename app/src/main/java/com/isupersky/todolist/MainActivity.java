@@ -1,7 +1,10 @@
 package com.isupersky.todolist;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Dialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.os.PersistableBundle;
 import android.view.View;
@@ -36,9 +39,7 @@ public class MainActivity extends AppCompatActivity {
         ls.setOnItemClickListener(new AdapterView.OnItemClickListener(){
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                trial.remove(position);
-                myAdapter.notifyDataSetChanged();
-                Toast.makeText(getApplicationContext(),"Item deleted", Toast.LENGTH_SHORT).show();
+             askDialog(position);
             }
         });
 
@@ -91,6 +92,32 @@ public class MainActivity extends AppCompatActivity {
             Toast.makeText(this, "Error saving Data", Toast.LENGTH_SHORT).show();
         }
     }
+
+    private void askDialog( int Position){
+        final int finalPosition = Position;
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage("Sure You Want to Delete?")
+                .setPositiveButton("YES", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        trial.remove(finalPosition);
+                        myAdapter.notifyDataSetChanged();
+                        Toast.makeText(getApplicationContext(),"Item deleted", Toast.LENGTH_SHORT).show();
+                    }
+                })
+                .setNegativeButton("NO", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        // User cancelled the dialog
+                    }
+                });
+        // Create the AlertDialog object and return it
+        builder.create();
+        builder.show();
+
+
+
+    }
+
+
 
 
 }
